@@ -16,6 +16,7 @@ import static java.util.Comparator.comparing;
 
 public class DataHandler {
 
+    // Method to create a list of Order objects from a JSON file
     public ArrayList<Order> createListOfOrderFromJsonFile(String filePath) throws IOException {
 
         String content = Files.readString(Paths.get(filePath));
@@ -25,7 +26,7 @@ public class DataHandler {
         orders.remove(0);
         return orders;
     }
-
+    // Method to create a list of Order objects from a CSV file
     public ArrayList<Order> createListOfOrderFromCsvFile(String filePath) throws IOException {
 
         ArrayList<Order> orders = new ArrayList<>();
@@ -36,6 +37,7 @@ public class DataHandler {
         String totalCost = "";
 
         while ((line = bufferedReader.readLine()) != null) {
+            // Split the line into an array of strings using a comma
             String[] temp = line.split(",");
             String orderDate = temp[0];
             String region = temp[1];
@@ -48,12 +50,14 @@ public class DataHandler {
                 totalCost = temp[7];
             }
 
+            // Create an Order object and add it to the ArrayList
             orders.add(new Order(orderDate, region, rep1, rep2, item, units, unitCost, totalCost));
         }
         bufferedReader.close();
         orders.remove(0);
         return orders;
     }
+    // Method to sort the ArrayList of Order objects by region alphabetically
     public void sortRegionAlpabetically(ArrayList<Order> orders) {
         Collections.sort(orders, comparing(Order::getRegion));
     }
